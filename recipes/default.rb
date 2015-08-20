@@ -4,7 +4,8 @@ when 'debian','ubuntu'
   package 'xfsdump'
   package 'xfslibs-dev'
 when 'redhat','centos','fedora','amazon'
-  package 'xfsprogs-devel'
+  package 'xfsprogs'
+  package 'xfsdump'
 end
 
 include_recipe 'aws'
