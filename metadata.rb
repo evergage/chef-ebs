@@ -5,11 +5,11 @@ name "ebs"
 maintainer "John Alberts"
 maintainer_email "john@alberts.me"
 description "Mounts attached EBS volumes"
-version "0.3.7"
+version "0.3.8"
 license "Apache 2.0"
 recipe "ebs::volumes", "Mounts attached EBS volumes"
 recipe "ebs::raids", "Mounts attached EBS RAIDs"
 recipe "ebs::persistent", "Mounts volumes defined in attributes"
 
-depends 'aws', '~> 2.7.0'
+depends 'aws', '>= 2.7.0'
 depends 'delayed_evaluator'
