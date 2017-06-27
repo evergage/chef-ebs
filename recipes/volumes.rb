@@ -32,6 +32,7 @@ node[:ebs][:volumes].each do |mount_point, options|
       availability_zone node[:ec2][:placement_availability_zone]
       volume_type volume_type
       encrypted options[:encrypted] || node[:ebs][:encrypted]
+      kms_key_id node[:ebs][:kms_key_id]
       piops options[:piops]
       action :nothing
     end
