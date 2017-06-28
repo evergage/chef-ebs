@@ -31,8 +31,10 @@ node[:ebs][:volumes].each do |mount_point, options|
       device device
       availability_zone node[:ec2][:placement_availability_zone]
       volume_type volume_type
-      encrypted options[:encrypted] || node[:ebs][:encrypted]
-      kms_key_id node[:ebs][:kms_key_id]
+      if node[:ebs][:encrypted]
+        encrypted true
+        kms_key_id node[:ebs][:kms_key_id]
+      end
       piops options[:piops]
       action :nothing
     end
