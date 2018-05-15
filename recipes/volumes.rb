@@ -40,7 +40,11 @@ node[:ebs][:volumes].each do |mount_point, options|
     end
     vol.run_action(:create)
     vol.run_action(:attach)
-    node.set[:ebs][:volumes][mount_point][:device] = "/dev/xvd#{devid}"
+    if File.exist?("/dev/xvd#{devid}")
+      node.normal[:ebs][:volumes][mount_point][:device] = "/dev/xvd#{devid}"
+    else
+      node.normal[:ebs][:volumes][mount_point][:device] = "/dev/sd#{devid}"
+    end
     node.save unless Chef::Config[:solo]
   end
 
