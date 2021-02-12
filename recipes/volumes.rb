@@ -16,9 +16,7 @@ node[:ebs][:volumes].each do |mount_point, options|
     devid = devices.sort.last[-1,1].succ
     device = "/dev/sd#{devid}"
 
-    volume_type = if options[:piops]
-                    'io1'
-                  elsif options[:volume_type]
+    volume_type = if options[:volume_type]
                     options[:volume_type]
                   else
                     node[:ebs][:volume_type]
