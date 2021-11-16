@@ -35,6 +35,9 @@ node[:ebs][:volumes].each do |mount_point, options|
         encrypted true
         kms_key_id node[:ebs][:kms_key_id]
       end
+      if options.has_key?(:delete_on_termination)
+        delete_on_termination options[:delete_on_termination]
+      end
       piops options[:piops]
       action :nothing
     end
