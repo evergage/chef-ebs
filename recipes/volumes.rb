@@ -16,17 +16,15 @@ node[:ebs][:volumes].each do |mount_point, options|
     devid = devices.sort.last[-1,1].succ
     device = "/dev/sd#{devid}"
 
-    volume_type = if options[:piops]
-                    'io1'
-                  elsif options[:volume_type]
+    volume_type = if options[:volume_type]
                     options[:volume_type]
                   else
                     node[:ebs][:volume_type]
                   end
 
     vol = aws_ebs_volume device do
-      aws_access_key credentials[node.ebs.creds.aki]
-      aws_secret_access_key credentials[node.ebs.creds.sak]
+      # aws_access_key credentials[node.ebs.creds.aki]
+      # aws_secret_access_key credentials[node.ebs.creds.sak]
       size options[:size]
       device device
       availability_zone node[:ec2][:placement_availability_zone]
@@ -39,6 +37,7 @@ node[:ebs][:volumes].each do |mount_point, options|
         delete_on_termination options[:delete_on_termination]
       end
       piops options[:piops]
+      throughput options[:throughput]
       action :nothing
     end
     vol.run_action(:create)
