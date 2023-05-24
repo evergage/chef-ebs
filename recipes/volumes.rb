@@ -38,6 +38,9 @@ node[:ebs][:volumes].each do |mount_point, options|
       end
       piops options[:piops]
       throughput options[:throughput]
+      if options[:tags]
+        tags options[:tags]
+      end
       action :nothing
     end
     vol.run_action(:create)
